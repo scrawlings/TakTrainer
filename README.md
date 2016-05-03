@@ -8,6 +8,10 @@ And the beta rules can be found here: http://cheapass.com/sites/default/files/Ta
 
 This project implements the game with in the intention of making a robot player and also to analyse different strategies. In part it is also to develop my own playing because it really is a beautiful game that has captured my imagination.
 
+## Robot
+
+## Game discussion web site
+
 ## To Do
 
 RETIRE VERSION 0.1 CODE: It seems most of the bots have performance issues so I'm going to revisit this from a performance first angle. 
