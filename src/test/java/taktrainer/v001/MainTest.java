@@ -1,4 +1,4 @@
-package taktrainer;
+package taktrainer.v001;
 
 import org.junit.Ignore;
 import org.junit.Test;

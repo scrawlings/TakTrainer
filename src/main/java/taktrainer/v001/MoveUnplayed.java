@@ -1,6 +1,6 @@
-package taktrainer;
+package taktrainer.v001;
 
-import taktrainer.Tile.TileType;
+import taktrainer.v001.Tile.TileType;
 
 public class MoveUnplayed implements Move {
     final Tile tile;

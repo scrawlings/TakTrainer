@@ -1,8 +1,7 @@
-package taktrainer;
+package taktrainer.v001;
 
-import taktrainer.Tile.Player;
+import taktrainer.v001.Tile.Player;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 

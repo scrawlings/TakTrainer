@@ -1,14 +1,14 @@
-package taktrainer;
+package taktrainer.v001;
 
-import taktrainer.Tile.TileType;
+import taktrainer.v001.Tile.TileType;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static taktrainer.Tile.Player.A;
-import static taktrainer.Tile.Player.B;
-import static taktrainer.Tile.TileType.cap;
-import static taktrainer.Unplayed.UnplayedWithCap;
+import static taktrainer.v001.Tile.Player.A;
+import static taktrainer.v001.Tile.Player.B;
+import static taktrainer.v001.Tile.TileType.cap;
+import static taktrainer.v001.Unplayed.UnplayedWithCap;
 
 public class Game {
     final Board board;

@@ -1,15 +1,17 @@
-package taktrainer;
+package taktrainer.v001;
 
 import org.junit.Test;
+import taktrainer.v001.At;
+import taktrainer.v001.Board;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static taktrainer.Tile.Player.A;
-import static taktrainer.Tile.Player.B;
-import static taktrainer.Tile.TileType.flat;
-import static taktrainer.Tile.TileType.wall;
-import static taktrainer.Tile.as;
-import static taktrainer.Tile.unplayedTile;
-import static taktrainer.Tile.capTile;
+import static taktrainer.v001.Tile.Player.A;
+import static taktrainer.v001.Tile.Player.B;
+import static taktrainer.v001.Tile.TileType.flat;
+import static taktrainer.v001.Tile.TileType.wall;
+import static taktrainer.v001.Tile.as;
+import static taktrainer.v001.Tile.unplayedTile;
+import static taktrainer.v001.Tile.capTile;
 
 public class BoardTest {
     @Test

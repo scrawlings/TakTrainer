@@ -1,4 +1,4 @@
-package taktrainer;
+package taktrainer.v001;
 
 public class FromPlayed implements From {
     final At from;

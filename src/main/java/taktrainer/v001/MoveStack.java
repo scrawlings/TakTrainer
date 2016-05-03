@@ -1,4 +1,4 @@
-package taktrainer;
+package taktrainer.v001;
 
 public class MoveStack implements Move {
     private FromPlayed from;
