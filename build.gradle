@@ -9,6 +9,10 @@ apply plugin: 'idea'
 //   gradle clojureRepl
 //   lein repl :connect 8777
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
 buildscript {
     repositories { 
         maven { url "http://clojars.org/repo" } 
