@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'clojure'
+apply plugin: 'idea'
+
+// Refer to these links for including Clojure in Gradle
+//   http://stackoverflow.com/questions/29015575/using-gradle-clojuresq-to-build-clojure
+//   http://dev.clojure.org/display/doc/Getting+Started+with+Gradle
+// useful clojure command line stuff
+//   gradle clojureRepl
+//   lein repl :connect 8777
+
+buildscript {
+    repositories { 
+        maven { url "http://clojars.org/repo" } 
+        mavenCentral()
+    }
+    dependencies {
+        classpath "clojuresque:clojuresque:1.7.0" 
+    }
+}
+ 
+
+idea {
+  project {
+    languageLevel = "8"
+  }
+}
+
+clojureRepl {
+    port = "8777"
+}
+
+
+repositories {
+    maven { url "http://clojars.org/repo" }
+    maven { url "http://maven.jzy3d.org/releases" }
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.clojure:tools.nrepl:0.2.11"
+    compile "org.clojure:clojure:1.7.0"
+    compile "com.javaslang:javaslang:2.0.0-RC2"
+    compile "org.jfree:jfreechart:1.0.19"
+
+    testCompile "junit:junit:4.12"
+    testCompile 'org.assertj:assertj-core:3.4.1'
+}
