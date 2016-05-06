@@ -9,6 +9,11 @@ public class Board {
     int turn;
     int move;
 
+    public static final int offRight = 1;
+    public static final int offLeft = -1;
+    public int offUp;
+    public int offDown;
+
     public static final Cell EMPTY = null;
 
     public static final int P1 = 10;
@@ -31,6 +36,8 @@ public class Board {
         squares = size * size;
         board = new Cell[squares];
         this.size = size;
+        offUp = -size;
+        offDown = size;
     }
 
     public String toTPS() {
@@ -51,13 +58,26 @@ public class Board {
                     if (emptyCount > 0) {
                         sb.append("x").append(emptyCount).append(",");
                     }
-                    sb.append(board[cell].cell / 10);
-                    if (board[cell].cell % 10 == S) {
-                        sb.append("S");
+
+                    Cell reversedForPrinting = null;
+                    Cell c = board[cell];
+
+                    while (c != null) {
+                        reversedForPrinting = new Cell(c.cell, reversedForPrinting);
+                        c = c.rest;
                     }
-                    if (board[cell].cell % 10 == C) {
-                        sb.append("C");
+
+                    while (reversedForPrinting != null) {
+                        sb.append(reversedForPrinting.cell / 10);
+                        if (reversedForPrinting.cell % 10 == S) {
+                            sb.append("S");
+                        }
+                        if (reversedForPrinting.cell % 10 == C) {
+                            sb.append("C");
+                        }
+                        reversedForPrinting = reversedForPrinting.rest;
                     }
+
                     emptyCount = 0;
                     first = false;
                 }
@@ -89,9 +109,29 @@ public class Board {
         return dup;
     }
 
-    public void applyMove(Move m) {
-        Cell cell = new Cell(turn + m.piece, board[m.at]);
-        board[m.at] = cell;
+    public void applyMove(Place p) {
+        Cell cell = new Cell(turn + p.piece, board[p.at]);
+        board[p.at] = cell;
+        updateTurnAndMove();
+    }
+
+    public void applyMove(Slide s) {
+        int destination = (s.offset * s.partition.length) + s.fromCell;
+        for (int part : s.partition) {
+            Cell moving = board[s.fromCell];
+            Cell bottom = moving;
+            for (int a = 0; a < part; a++) {
+                bottom = board[s.fromCell];
+                board[s.fromCell] = (bottom == null) ? null : bottom.rest;
+            }
+            bottom.rest = board[destination];
+            board[destination] = moving;
+            destination -= s.offset;
+        }
+        updateTurnAndMove();
+    }
+
+    private void updateTurnAndMove() {
         if (turn == P1) {
             turn = P2;
         }
@@ -120,7 +160,7 @@ public class Board {
                 case 'x':
                     a++;
                     int run = Integer.parseInt(String.valueOf(tps.charAt(a)));
-                    cell += run;
+                    cell += (run - 1);
                     break;
 
                 case '2':
@@ -141,6 +181,10 @@ public class Board {
 
                     Cell c = new Cell(piece, board[cell]);
                     board[cell] = c;
+                    break;
+
+                case ',':
+                case '/':
                     cell++;
                     break;
 

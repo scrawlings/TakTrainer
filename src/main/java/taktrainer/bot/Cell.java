@@ -2,10 +2,10 @@ package taktrainer.bot;
 
 public class Cell {
     int cell;
-    Cell stack;
+    Cell rest;
 
-    public Cell(int cell, Cell stack) {
+    public Cell(int cell, Cell rest) {
         this.cell = cell;
-        this.stack = stack;
+        this.rest = rest;
     }
 }
