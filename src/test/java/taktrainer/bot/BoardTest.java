@@ -24,4 +24,28 @@ public class BoardTest {
         board.applyMove(new Move(board.cell(6, 6), Board.C));
         org.assertj.core.api.Assertions.assertThat(board.toTPS()).isEqualTo("[TPS \"2,x5/x6/x1,1,1,x3/x3,2S,x2/x6/x5,1C 2 3\"]");
     }
+
+    @Test
+    public void testBuildBoardStateFromTPS() throws Exception {
+    }
+
+    @Test
+    public void testSimpleUnblockedSlidesOnEmptyCells() throws Exception {
+    }
+
+    @Test
+    public void testSimpleUnblockedSlidesOnCellsWithStacks() throws Exception {
+    }
+
+    @Test
+    public void testSlidesBlockedByEdges() throws Exception {
+    }
+
+    @Test
+    public void testSlidesBlockedByWallsAndCapstones() throws Exception {
+    }
+
+    @Test
+    public void testSlidesWhereCapstonesToppleStandingStones() throws Exception {
+    }
 }
