@@ -36,13 +36,12 @@ public class BoardTest {
         assertThat(board.toTPS()).isEqualTo("[TPS \"2,x5/x6/x1,1,1,x3/x3,2S,x2/x6/x6 1 24\"]");
     }
 
-
     @Test
-    public void testBuildBoardStateFromTPSWithStacks() throws Exception {
+    public void testSimpleUnblockedSlidesOnEmptyCells() throws Exception {
     }
 
     @Test
-    public void testSimpleUnblockedSlidesOnEmptyCells() throws Exception {
+    public void testBuildBoardStateFromTPSWithStacks() throws Exception {
     }
 
     @Test

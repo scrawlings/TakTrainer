@@ -3,13 +3,13 @@ package taktrainer.bot;
 import java.text.ParseException;
 
 public class Board {
-    final int board[];
+    final Cell board[];
     final int size;
     final int squares;
     int turn;
     int move;
 
-    public static final int EMPTY = 0;
+    public static final Cell EMPTY = null;
 
     public static final int P1 = 10;
     public static final int P2 = 20;
@@ -29,11 +29,8 @@ public class Board {
         turn = P1;
         move = 1;
         squares = size * size;
-        board = new int[squares];
+        board = new Cell[squares];
         this.size = size;
-        for (int a = 0; a < squares; a++) {
-            board[a] = EMPTY;
-        }
     }
 
     public String toTPS() {
@@ -54,11 +51,11 @@ public class Board {
                     if (emptyCount > 0) {
                         sb.append("x").append(emptyCount).append(",");
                     }
-                    sb.append(board[cell] / 10);
-                    if (board[cell] % 10 == S) {
+                    sb.append(board[cell].cell / 10);
+                    if (board[cell].cell % 10 == S) {
                         sb.append("S");
                     }
-                    if (board[cell] % 10 == C) {
+                    if (board[cell].cell % 10 == C) {
                         sb.append("C");
                     }
                     emptyCount = 0;
@@ -93,7 +90,8 @@ public class Board {
     }
 
     public void applyMove(Move m) {
-        board[m.at] = turn + m.piece;
+        Cell cell = new Cell(turn + m.piece, board[m.at]);
+        board[m.at] = cell;
         if (turn == P1) {
             turn = P2;
         }
@@ -141,7 +139,8 @@ public class Board {
                             piece += F;
                     };
 
-                    board[cell] = piece;
+                    Cell c = new Cell(piece, board[cell]);
+                    board[cell] = c;
                     cell++;
                     break;
 
