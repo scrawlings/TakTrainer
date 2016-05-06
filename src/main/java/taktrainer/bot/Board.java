@@ -40,15 +40,15 @@ public class Board {
         offDown = size;
     }
 
-    public Board duplicateBoard() {
-        final Board dup = new Board(size);
-
-        dup.turn = this.turn;
-        dup.move = this.move;
-        System.arraycopy(this.board, 0, dup.board, 0, dup.squares);
-
-        return dup;
-    }
+//    public Board duplicateBoard() {
+//        final Board dup = new Board(size);
+//
+//        dup.turn = this.turn;
+//        dup.move = this.move;
+//        System.arraycopy(this.board, 0, dup.board, 0, dup.squares);
+//
+//        return dup;
+//    }
 
     public void applyMove(Place p) {
         Cell cell = new Cell(turn + p.piece, board[p.at]);

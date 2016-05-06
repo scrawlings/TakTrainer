@@ -14,31 +14,17 @@ This project implements the game with in the intention of making a robot player 
 
 ## To Do
 
-RETIRE VERSION 0.1 CODE: It seems most of the bots have performance issues so I'm going to revisit this from a performance first angle. 
-
-  * board and stacks as compact array of primitives when possible, System.arrayCopy() is my new friend
   * pregenerate all partitions and look them up rather than calculating them
-  * make a custom cons list for tile stacks, optimised for:
-    * take the top sub stack and leave behind the rest
-    * break the sub stack according to the partitions
-    * add substacks to the top of other stacks (including empty cells)
-    * quickly inspect the top element of a stack/cell
-
-Stuff that once seemed right, and will probably be relevant in future: 
-
-  * Have generated all the possible pile partitions validate them in each direction against the board.
-  * Create a new board from a move the old board
-  * Output moves in standard notation
-  * Accept input moves in standard notation
-  * Apply anaylsis to boards and ranking heuristics
-  * Apply minimax analysis to play a game
-  * Visualise the baord in some useful way
-  * Play two robots
-  * Random first moves
-  * Remember heuristic choices and match to game outcomes
-  * Push to GIT
-  * Analyse performance and optimise
-  * Consider which language I'd like to present this with
+  * accept moves in PTN format
+  * command line play against robot
+  * play bot vs bot and output script
+  * track played pieces
+  * determine played pieces from loaded board
+  * reverse first moves
+  * game termination conditions
+    * all tiles played: count flats
+    * road
+  * score: board size plus unplayed
 
 ## Also To Do
 
