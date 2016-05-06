@@ -1,5 +1,7 @@
 package taktrainer.bot;
 
+import java.text.ParseException;
+
 public class Board {
     final int board[];
     final int size;
@@ -103,5 +105,73 @@ public class Board {
 
     public int cell(final int x, final int y) {
         return (x - 1) + ((y - 1) * size);
+    }
+
+    public void loadTPS(String tps) throws ParseException {
+        String prefix = tps.substring(0, 6);
+
+        if (!prefix.equals("[TPS \"")) {
+            throw new ParseException("Invalid TPS prefix", 0);
+        }
+
+        int cell = 0;
+        boolean processingCells = true;
+        int a = 6;
+        while (processingCells) {
+            switch (tps.charAt(a)) {
+                case 'x':
+                    a++;
+                    int run = Integer.parseInt(String.valueOf(tps.charAt(a)));
+                    cell += run;
+                    break;
+
+                case '2':
+                case '1':
+                    int piece = (tps.charAt(a) == '1') ? P1 : P2;
+                    switch (tps.charAt(a+1)) {
+                        case 'S':
+                            piece += S;
+                            a++;
+                            break;
+                        case 'C':
+                            piece += C;
+                            a++;
+                            break;
+                        default:
+                            piece += F;
+                    };
+
+                    board[cell] = piece;
+                    cell++;
+                    break;
+
+                case ' ':
+                    processingCells = false;
+                    break;
+            }
+            a++;
+        }
+
+        boolean processingTurn = true;
+        while (processingTurn) {
+            if (tps.charAt(a) != ' ') {
+                turn = 10 * Integer.parseInt(String.valueOf(tps.charAt(a)));
+                processingTurn = false;
+            }
+            a++;
+        }
+
+
+        boolean processingMove = true;
+        move = 0;
+        while (processingMove) {
+            if (tps.charAt(a) != ' ') {
+                move = (move * 10) + Integer.parseInt(String.valueOf(tps.charAt(a)));
+                if (!Character.isDigit(tps.charAt(a+1))) {
+                    processingMove = false;
+                }
+            }
+            a++;
+        }
     }
 }
