@@ -35,13 +35,18 @@ public class PTN {
         int offset = getOffset(b, m.charAt(3));
 
         int[] parts = {1};
-
-        if (m.charAt(0) != '1') {
+        int pieces = Integer.parseInt(m.substring(0,1));
+        if (pieces != 1) {
             int slicesInPartition = m.length() - 4;
-            parts = new int[slicesInPartition];
 
-            for (int a = 4, x = 0; a < m.length(); a++, x++) {
-                parts[x] = Integer.parseInt(m.substring(a, a+1));
+            if (slicesInPartition == 0) {
+                parts[0] = pieces;
+            }
+            else {
+                parts = new int[slicesInPartition];
+                for (int a = 4, x = 0; a < m.length(); a++, x++) {
+                    parts[x] = Integer.parseInt(m.substring(a, a + 1));
+                }
             }
         }
 
@@ -132,7 +137,7 @@ public class PTN {
             sb.append(">");
         }
 
-        if (pieces > 1) {
+        if (s.partition.length > 1) {
             for (int piece : s.partition) {
                 sb.append(piece);
             }

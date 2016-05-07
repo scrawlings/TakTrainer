@@ -15,7 +15,7 @@ This project implements the game with in the intention of making a robot player 
 ## To Do
 
   * pregenerate all partitions and look them up rather than calculating them
-  * accept moves in PTN format
+  * play a whole PTN file move by move
   * command line play against robot
   * play bot vs bot and output script
   * track played pieces

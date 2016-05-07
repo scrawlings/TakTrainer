@@ -50,4 +50,13 @@ public class PTNTest {
         assertThat(toPTN(b, s)).isEqualTo("c2<");
         assertThat(loadPTN("c2<", b)).isEqualTo(s);
     }
+
+    @Test
+    public void testStandardSaysDoNotShowSinglePartionOnSlide() throws Exception {
+        final int[] p = {3};
+        final Board b = new Board(6);
+        final Slide s = new Slide(b.cell(3, 5), b.offLeft, p);
+        assertThat(toPTN(b, s)).isEqualTo("3c2<");
+        assertThat(loadPTN("3c2<", b)).isEqualTo(s);
+    }
 }
