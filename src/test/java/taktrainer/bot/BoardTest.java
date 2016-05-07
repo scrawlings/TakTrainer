@@ -61,7 +61,7 @@ public class BoardTest {
         loadTPS(board, "[TPS \"x6/x6/x6/22,x5/x6/1221121S,x5 2 23\"]");
         final int[] partition = {1,2,3};
         board.applyMove(new Slide(board.cell(1, 6), board.offUp, partition));
-        assertThat(toTPS(board)).isEqualTo("[TPS \"x6/x6/1S,x5/2212,x5/221,x5/1,x5 1 24\"]");
+        assertThat(toTPS(board)).isEqualTo("[TPS \"x6/x6/121S,x5/2221,x5/2,x5/1,x5 1 24\"]");
     }
 
     @Ignore

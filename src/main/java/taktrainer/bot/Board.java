@@ -1,7 +1,5 @@
 package taktrainer.bot;
 
-import java.text.ParseException;
-
 public class Board {
     final Cell board[];
     final int size;
@@ -57,13 +55,14 @@ public class Board {
     }
 
     public void applyMove(Slide s) {
-        int destination = (s.offset * s.partition.length) + s.fromCell;
-        for (int part : s.partition) {
-            Cell moving = board[s.fromCell];
+        int destination = (s.offset * s.partition.length) + s.from;
+
+        for (int a = s.partition.length - 1; a >= 0; a--) {
+            Cell moving = board[s.from];
             Cell bottom = moving;
-            for (int a = 0; a < part; a++) {
-                bottom = board[s.fromCell];
-                board[s.fromCell] = (bottom == null) ? null : bottom.rest;
+            for (int b = 0; b < s.partition[a]; b++) {
+                bottom = board[s.from];
+                board[s.from] = (bottom == null) ? null : bottom.rest;
             }
             bottom.rest = board[destination];
             board[destination] = moving;
