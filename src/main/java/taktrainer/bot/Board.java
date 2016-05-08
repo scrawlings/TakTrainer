@@ -14,6 +14,7 @@ public class Board {
 
     public static final Cell EMPTY = null;
 
+    public static final int NoPlayer = 0;
     public static final int P1 = 10;
     public static final int P2 = 20;
 
