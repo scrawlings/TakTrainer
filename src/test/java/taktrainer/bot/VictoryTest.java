@@ -96,4 +96,12 @@ public class VictoryTest {
         loadTPS(board, "[TPS \"x6/x6/1,1,1,x1,1,1/x6/x6/x6 1 24\"]");
         assertThat(flatsMajority(board)).isEqualTo(NoPlayer);
     }
+
+    @Ignore
+    @Test
+    public void testTheCrazyBlock() throws Exception {
+        final Board board = new Board(6);
+        loadTPS(board, "[TPS \"1,x5/1,1,1,1,1,x1/1,1,1,1,1,x1/1,1,1,1,1,x1/1,1,1,1,1,x1/x4,1,x1 1 24\"]");
+        assertThat(flatsMajority(board)).isEqualTo(NoPlayer);
+    }
 }
