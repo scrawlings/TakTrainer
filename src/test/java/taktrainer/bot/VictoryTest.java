@@ -50,7 +50,6 @@ public class VictoryTest {
         assertThat(flatsMajority(board)).isEqualTo(P1);
     }
 
-    @Ignore
     @Test
     public void testTheTwistyPath() throws Exception {
         final Board board = new Board(6);
@@ -58,7 +57,21 @@ public class VictoryTest {
         assertThat(winByRoads(board)).isEqualTo(P1);
     }
 
-    @Ignore
+
+    @Test
+    public void testTheKinkyPath() throws Exception {
+        final Board board = new Board(6);
+        loadTPS(board, "[TPS \"1,x5/1,x5/1,1x4/x1,1,x4/x1,1,x4/x1,1,x4 1 24\"]");
+        assertThat(winByRoads(board)).isEqualTo(P1);
+    }
+
+    @Test
+    public void testAnotherKinkyPath() throws Exception {
+        final Board board = new Board(6);
+        loadTPS(board, "[TPS \"x3,2,x2/x3,2,x2/x1,2,2,2,x2/x1,2,x4/x1,2,x4/x1,2,x4 1 24\"]");
+        assertThat(winByRoads(board)).isEqualTo(P2);
+    }
+
     @Test
     public void testTheTwistyPathBroken() throws Exception {
         final Board board = new Board(6);
@@ -94,7 +107,6 @@ public class VictoryTest {
         assertThat(winByRoads(board)).isEqualTo(P1);
     }
 
-    @Ignore
     @Test
     public void testTheStraightPathAcrossBroken() throws Exception {
         final Board board = new Board(6);
@@ -102,7 +114,6 @@ public class VictoryTest {
         assertThat(winByRoads(board)).isEqualTo(NoPlayer);
     }
 
-    @Ignore
     @Test
     public void testTheCrazyBlock() throws Exception {
         final Board board = new Board(6);
