@@ -24,7 +24,7 @@ gradle-app.setting
 hs_err_pid*
 
 .idea/
-CodedLens.iml
+*.iml
 
 .DS_Store
 *.ipr

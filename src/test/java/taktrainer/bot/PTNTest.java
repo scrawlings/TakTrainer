@@ -29,7 +29,7 @@ public class PTNTest {
         final Board b = new Board(6);
         final Place p = new Place(b.cell(4, 5), Board.C);
         assertThat(toPTN(b, p)).isEqualTo("Cd2");
-        assertThat(loadPTN("Dd2", b)).isEqualTo(p);
+        assertThat(loadPTN("Cd2", b)).isEqualTo(p);
     }
 
     @Test
