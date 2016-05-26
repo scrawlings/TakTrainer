@@ -11,6 +11,14 @@
   (is (= (toTPS (fromTPS "[TPS \"x6/x6/x6/x6/x6/x6 1 1\"]")) "[TPS \"x6/x6/x6/x6/x6/x6 1 1\"]")))
 
 
+(deftest print-board
+  (is (= {:board [[[] [] []]
+                  [[] [] []]
+                  [[] [] []]]
+          :size 3}
+         (fromTPS "[TPS \"x3/x3/x3 1 1\"]"))))
+
+
 
 
 
