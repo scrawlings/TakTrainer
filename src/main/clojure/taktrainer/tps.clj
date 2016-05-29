@@ -4,9 +4,11 @@
 (defn find-size [acc row]
   (if (empty? row)
     acc
-    (let [blank  (= \x (first row))
-          count  (if blank (Integer/parseInt (str (second row))) 1)
-          rest   (drop 1 (drop-while #(not (= \, %)) row))]
+    (let [blank           (= \x (first row))
+          pos-digit       (second row)
+          digit-following (and blank pos-digit (Character/isDigit pos-digit))
+          count           (if digit-following (Integer/parseInt (str pos-digit)) 1)
+          rest            (drop 1 (drop-while #(not (= \, %)) row))]
       (recur (+ acc count) rest))))
 
 
