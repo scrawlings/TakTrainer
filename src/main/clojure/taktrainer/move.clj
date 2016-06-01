@@ -21,6 +21,11 @@
           next-from (+ from part-size)]
       (recur original (rest partitions) next-from (conj acc part)))))
 
+(defn replace-at [board [x y] stack]
+  (let [row         (assoc (board y) x (vec stack))
+        board       (assoc board y row)]
+    board))
+
 (defn add-at [board [x y] stack]
   (let [row         (board y)
         cell        (row x)
@@ -29,17 +34,17 @@
         board       (assoc board y row)]
     board))
 
+(defn apply-add-at [board parts locations]
+  (if (or (empty? parts) (empty? locations))
+    board
+    (recur (add-at board (first locations) (first parts)) (rest parts) (rest locations))))
+
 (defn coordinates-series [[x y] dir steps acc]
   (if (= 0 steps)
     acc
     (let [[x-offset y-offset] (offsets-ref dir)
           next                [(+ x x-offset) (+ y y-offset)]]
       (recur next dir (dec steps) (conj acc next)))))
-
-(defn apply-add-at [board parts locations]
-  (if (or (empty? parts) (empty? locations))
-    board
-    (recur (add-at board (first locations) (first parts)) (rest parts) (rest locations))))
 
 (defn make-move-slide [{[x y] :from direction :direction moving-count :pieces partition :partition player :player}
                        {board :board size :size turn :turn move :move :as b}]
@@ -50,9 +55,7 @@
         leaving     (- (count cell) moving-count)
         partitions  (cons leaving partition)
         parts       (vector-partition cell partitions 0 [])
-        cell        (first parts)
-        row         (assoc row x cell)
-        board       (assoc board y row)
+        board       (replace-at board [x y] (first parts))
         parts       (rest parts)
         locations   (coordinates-series [x y] direction (count parts) [])
         board       (apply-add-at board parts locations)]
