@@ -3,14 +3,14 @@
 
 (def ids [:a :b :c :d :e :f :g :h])
 
-(def offsets-ref {:+ [0 1] :- [0 -1] :< [-1 0] :> [1 0]})
-
 (defn decode-x [x]
   (.indexOf ids x))
 
 (defn decode-y [y]
   (dec y))
 
+
+(def offsets-ref {:+ [0 1] :- [0 -1] :< [-1 0] :> [1 0]})
 
 
 (defn vector-partition [original partitions from acc]
@@ -88,3 +88,22 @@
                     (make-move-place m b)
                     (make-move-slide m b))]
     (assoc next-b :move next-m :turn next-p)))
+
+
+
+(defn validate-move-slide [m b]
+  false)
+
+(defn validate-move-place [{[x y] :at}
+                           {board :board}]
+  (let [x (decode-x x)
+        y (decode-y y)
+        row (board y)
+        cell (row x)]
+    (empty? cell)))
+
+
+(defn validate-move [{type :move :as m} b]
+    (if (= type :place)
+      (validate-move-place m b)
+      (validate-move-slide m b)))
