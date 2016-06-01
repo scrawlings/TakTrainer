@@ -24,3 +24,12 @@
           :turn :2
           :size 3}
          (make-move (fromPTN "b2") (fromTPS "[TPS \"x3/x3/x3 1 1\"]")))))
+
+
+(deftest simple-slides
+  (is (= (make-move (fromPTN "4a2>112") (fromTPS "[TPS \"x4/1112,x3/x4/x4 2 7\"]"))
+         (fromTPS "[TPS \"x4/x,1,1,12/x4/x4 1 8\"]")))
+  (is (= (make-move (fromPTN "3a2+12") (fromTPS "[TPS \"x4/1112,x3/x4/x4 2 7\"]"))
+         (fromTPS "[TPS \"x4/1,x3/1,x3/12,x3 1 8\"]")))
+  (is (= (make-move (fromPTN "3a2+12") (fromTPS "[TPS \"x4/1112,x3/2,x3/x4 2 7\"]"))
+         (fromTPS "[TPS \"x4/1,x3/21,x3/12,x3 1 8\"]"))))
