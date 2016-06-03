@@ -48,17 +48,19 @@
 
 (defn make-move-slide [{[x y] :from direction :direction moving-count :pieces partition :partition player :player}
                        {board :board size :size turn :turn move :move :as b}]
-  (let [x           (decode-x x)
-        y           (decode-y y)
-        row         (board y)
-        cell        (row x)
-        leaving     (- (count cell) moving-count)
-        partitions  (cons leaving partition)
-        parts       (vector-partition cell partitions 0 [])
-        board       (replace-at board [x y] (first parts))
-        parts       (rest parts)
-        locations   (coordinates-series [x y] direction (count parts) [])
-        board       (apply-add-at board parts locations)]
+  (let [x            (decode-x x)
+        y            (decode-y y)
+        row          (board y)
+        cell         (row x)
+        moving-count (if (number? moving-count) moving-count (min (count cell) size))
+        leaving      (- (count cell) moving-count)
+        partition    (if (keyword? partition) [moving-count] partition)
+        partitions   (cons leaving partition)
+        parts        (vector-partition cell partitions 0 [])
+        board        (replace-at board [x y] (first parts))
+        parts        (rest parts)
+        locations    (coordinates-series [x y] direction (count parts) [])
+        board        (apply-add-at board parts locations)]
     (assoc b :board board)))
 
 

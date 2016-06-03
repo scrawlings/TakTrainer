@@ -10,12 +10,15 @@
 
 
 
-(deftest validate-slide-simple
-  (is (true? (validate-move (fromPTN "3a1>21") (fromTPS "[TPS \"1111,x2/x3/x3 2 7\"]"))))
-  (is (true? (validate-move (fromPTN "3a1>21") (fromTPS "[TPS \"111,1,2/x3/x3 2 7\"]")))))
+'(deftest validate-slide-simple
+  (is (true? (validate-move (fromPTN "3a1>21") (fromTPS "[TPS \"1112,x2/x3/x3 2 7\"]"))))
+  (is (true? (validate-move (fromPTN "3a1>21") (fromTPS "[TPS \"112,1,2/x3/x3 2 7\"]")))))
 
 
 
 
-(deftest validate-slide-fail
-  (is (false? (validate-move (fromPTN "3a1>111") (fromTPS "[TPS \"1111,x2/x3/x3 2 7\"]")))))
+'(deftest validate-slide-fail
+  (is (false? (validate-move (fromPTN "3a1>111") (fromTPS "[TPS \"1112,x2/x3/x3 2 7\"]")))))
+
+'(deftest control-fail
+  (is (false? (validate-move (fromPTN "a1>") (fromTPS "[TPS \"1,x2/x3/x3 2 7\"]")))))

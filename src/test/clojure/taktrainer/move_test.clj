@@ -32,4 +32,6 @@
   (is (= (make-move (fromPTN "3a2+12") (fromTPS "[TPS \"x4/1112,x3/x4/x4 2 7\"]"))
          (fromTPS "[TPS \"x4/1,x3/1,x3/12,x3 1 8\"]")))
   (is (= (make-move (fromPTN "3a2+12") (fromTPS "[TPS \"x4/1112,x3/2,x3/x4 2 7\"]"))
-         (fromTPS "[TPS \"x4/1,x3/21,x3/12,x3 1 8\"]"))))
+         (fromTPS "[TPS \"x4/1,x3/21,x3/12,x3 1 8\"]")))
+  (is (= (make-move (fromPTN "a1>") (fromTPS "[TPS \"2,x2/x3/x3 2 7\"]"))
+         (fromTPS "[TPS \"x,2,x/x3/x3 1 8\"]"))))
