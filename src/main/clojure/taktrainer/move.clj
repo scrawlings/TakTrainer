@@ -13,6 +13,19 @@
 (def offsets-ref {:+ [0 1] :- [0 -1] :< [-1 0] :> [1 0]})
 
 
+(defn is-piece-type [piece type]
+  (if (nil? piece)
+    false
+    (let [type-char  (second (name piece))]
+      (and (not (nil? type-char)) (= type type-char)))))
+
+(defn standing? [piece]
+  (is-piece-type piece \S))
+
+(defn cap? [piece]
+  (is-piece-type piece \C))
+
+
 (defn vector-partition [original partitions from acc]
   (if (empty? partitions)
     acc
@@ -26,10 +39,18 @@
         board       (assoc board y row)]
     board))
 
+(defn flat [piece]
+  (->> piece name first str keyword))
+
 (defn add-at [board [x y] stack]
   (let [row         (board y)
         cell        (row x)
-        cell        (vec (concat cell stack))
+        base        (if (empty? cell) [] (subvec cell 0 (dec (count cell))))
+        top         (if (empty? cell) [] (last cell))
+        solo-cap    (and (= 1 (count stack)) (cap? (last stack)))
+        top         (if solo-cap (flat top) top)
+        top         (if (keyword? top) [top] top)
+        cell        (vec (concat base top stack))
         row         (assoc row x cell)
         board       (assoc board y row)]
     board))
@@ -91,10 +112,49 @@
                     (make-move-slide m b))]
     (assoc next-b :move next-m :turn next-p)))
 
+(defn check-stackable [board [x y] stack]
+  (let [row         (board y)
+        cell        (row x)
+        top         (last cell)
+        flat-top    (not (or (standing? top) (cap? top)))
+        solo-cap    (and (= 1 (count stack)) (cap? (last stack)))]
+    (or flat-top (and solo-cap (standing? top))) ))
+
+(defn check-slidable [board parts locations valid]
+  (if (or (not valid) (empty? parts) (empty? locations))
+    valid
+    (recur board (rest parts) (rest locations) (check-stackable board (first locations) (first parts)))))
+
+(defn check-unblocked [board cell moving-count coords direction partition]
+  (let [leaving             (- (count cell) moving-count)
+        partitions          (cons leaving partition)
+        parts               (vector-partition cell partitions 0 [])
+        parts               (rest parts)
+        locations           (coordinates-series coords direction (count parts) [])]
+    (check-slidable board parts locations true)))
+
+(defn controlled? [piece player]
+  (let [player-char       (->> player name first)
+        piece-char        (->> piece name first)]
+    (= player-char piece-char)))
 
 
-(defn validate-move-slide [m b]
-  false)
+(defn validate-move-slide [{[x y] :from direction :direction moving-count :pieces partition :partition}
+                           {board :board size :size turn :turn move :move}]
+  (let [x                   (decode-x x)
+        y                   (decode-y y)
+        row                 (board y)
+        cell                (row x)
+        control             (controlled? (last cell) turn)
+        moving-count        (if (number? moving-count) moving-count (min (count cell) size))
+        sufficient          (<= moving-count (count cell))
+        partition           (if (keyword? partition) [moving-count] partition)
+        partable            (= moving-count (reduce + partition))
+        [x-offset y-offset] (offsets-ref direction)
+        x-extent            (+ x (* x-offset (count partition)))
+        y-extent            (+ y (* y-offset (count partition)))
+        within-bounds       (and (>= x-extent 0) (>= y-extent 0) (< x-extent size) (< y-extent size))]
+    (and control sufficient partable within-bounds (check-unblocked board cell moving-count [x y] direction partition))))
 
 (defn validate-move-place [{[x y] :at}
                            {board :board}]

@@ -35,3 +35,7 @@
          (fromTPS "[TPS \"x4/1,x3/21,x3/12,x3 1 8\"]")))
   (is (= (make-move (fromPTN "a1>") (fromTPS "[TPS \"2,x2/x3/x3 2 7\"]"))
          (fromTPS "[TPS \"x,2,x/x3/x3 1 8\"]"))))
+
+(deftest slides-with-flattening
+  (is (= (make-move (fromPTN "4a2>121") (fromTPS "[TPS \"x4/1112C,x2,1S/x4/x4 2 7\"]"))
+         (fromTPS "[TPS \"x4/x,1,11,12C/x4/x4 1 8\"]"))))
