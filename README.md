@@ -14,16 +14,17 @@ This project implements the game with in the intention of making a robot player 
 
 ## To Do
 
-  * pregenerate all partitions and look them up rather than calculating them
-  * play a whole PTN file move by move
-  * command line play against robot
-  * play bot vs bot and output script
-  * track played pieces
-  * determine played pieces from loaded board
-  * reverse first moves
+  * players can only play from the remaining pieces (validation rule)
   * game termination conditions
     * all tiles played: count flats
     * road
+  * pregenerate all partitions and look them up rather than calculating them
+  * play human v human on the command line
+  * play a whole PTN file move by move
+  * command line play against robot
+  * play bot vs bot and output script
+  * determine played pieces from loaded board
+  * reverse first moves
   * score: board size plus unplayed
 
 ## Also To Do
