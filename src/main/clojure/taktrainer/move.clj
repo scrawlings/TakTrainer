@@ -9,7 +9,6 @@
 (defn decode-y [y]
   (dec y))
 
-
 (def offsets-ref {:+ [0 1] :- [0 -1] :< [-1 0] :> [1 0]})
 
 
@@ -86,16 +85,20 @@
 
 
 (defn make-move-place [{[x y] :at piece :piece player :player}
-                       {board :board :as b}]
-  (let [x     (decode-x x)
-        y     (decode-y y)
-        row   (board y)
-        cell  (row x)
-        piece (keyword (str (name player) (if (not (= piece :F)) (name piece) "")))
-        cell  (conj cell piece)
-        row   (assoc row x cell)
-        board (assoc board y row)]
-    (assoc b :board board)))
+                       {board :board pieces :pieces :as b}]
+  (let [takes   (if (= piece :C) :C :T)
+        pot     (pieces player)
+        pot     (assoc pot takes (dec (pot takes)))
+        pieces  (assoc pieces player pot)
+        x       (decode-x x)
+        y       (decode-y y)
+        row     (board y)
+        cell    (row x)
+        piece   (keyword (str (name player) (if (not (= piece :F)) (name piece) "")))
+        cell    (conj cell piece)
+        row     (assoc row x cell)
+        board   (assoc board y row)]
+    (assoc b :board board :pieces pieces)))
 
 (defn next-player [p]
   (if (= p :1)
