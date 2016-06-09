@@ -16,7 +16,6 @@ This project implements the game with in the intention of making a robot player 
 
   * players can only play from the remaining pieces (validation rule)
   * game termination conditions
-    * all tiles played (victor controls the most non-standing pieces)
     * road linking sides (victor controls the road)
   * pregenerate all partitions and look them up rather than calculating them
   * play human v human on the command line
