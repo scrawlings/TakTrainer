@@ -38,7 +38,7 @@
         board       (assoc board y row)]
     board))
 
-(defn flat [piece]
+(defn make-flat [piece]
   (->> piece name first str keyword))
 
 (defn add-at [board [x y] stack]
@@ -47,7 +47,7 @@
         base        (if (empty? cell) [] (subvec cell 0 (dec (count cell))))
         top         (if (empty? cell) [] (last cell))
         solo-cap    (and (= 1 (count stack)) (cap? (last stack)))
-        top         (if solo-cap (flat top) top)
+        top         (if solo-cap (make-flat top) top)
         top         (if (keyword? top) [top] top)
         cell        (vec (concat base top stack))
         row         (assoc row x cell)
