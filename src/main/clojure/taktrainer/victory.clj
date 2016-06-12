@@ -36,14 +36,13 @@
             :1
             :2))))))
 
+
 (defn starting-side [board player row acc]
   (if (empty? board)
     acc
     (if (controlled-by? (first (first board)) player)
       (recur (rest board) player (inc row) (conj acc [0 row]))
       (recur (rest board) player (inc row) acc))))
-
-
 
 (defn starting-top [row player col acc]
   (if (empty? row)
@@ -69,40 +68,36 @@
             (combi/cartesian-product [x] y-dirs))))
 
 (defn get-at [[x y] board]
-  (let [row         (board y)
-        cell        (row x)]
-    cell))
+  (let [row         (board y)]
+    (row x)))
 
 (defn flood-from [{board :board size :size :as b} player to-check visited picker]
   (if (empty? to-check)
-    nil
+    false
     (let [finishing-in              (dec size)
           current                   (first to-check)
           all-next-cells            (neighbours current finishing-in)
           next-cells                (remove visited all-next-cells)
           controlled-next-cells     (filter #(controlled-by? (get-at % board) player) next-cells)
-          next-cols                 (map picker controlled-next-cells)]
-      (if (in? next-cols finishing-in)
+          next-cols                 (map picker controlled-next-cells)
+          at-other-side             (in? next-cols finishing-in)]
+      (if at-other-side
         true
         (recur b player (concat (rest to-check) controlled-next-cells) (conj visited current) picker) ))))
 
-(defn victory-east-west-road [{board :board :as b}
-                              player]
-  (let [start  (starting-side board player 0 #{})
-        road   (flood-from b player start #{} first)]
-    road))
+(defn east-west-road [{board :board :as b} player]
+  (let [start  (starting-side board player 0 #{})]
+    (flood-from b player start #{} first)))
 
-(defn victory-north-south-road [{board :board :as b}
-                              player]
-  (let [start  (starting-top (first board) player 0 #{})
-        road   (flood-from b player start #{} second)]
-    road))
+(defn north-south-road [{board :board :as b} player]
+  (let [start  (starting-top (first board) player 0 #{})]
+    (flood-from b player start #{} second)))
 
 (defn victory-road [b]
-  (let [ew1   (victory-east-west-road b [:1 :1C])
-        ew2   (victory-east-west-road b [:2 :2C])
-        ns1   (victory-north-south-road b [:1 :1C])
-        ns2   (victory-north-south-road b [:2 :2C])
+  (let [ew1   (east-west-road b [:1 :1C])
+        ew2   (east-west-road b [:2 :2C])
+        ns1   (north-south-road b [:1 :1C])
+        ns2   (north-south-road b [:2 :2C])
         p1    (or ns1 ew1)
         p2    (or ns2 ew2)]
     (if (and p1 p2)
