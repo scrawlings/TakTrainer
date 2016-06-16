@@ -85,16 +85,17 @@
 
 
 (defn make-move-place [{[x y] :at piece :piece player :player}
-                       {board :board pieces :pieces :as b}]
+                       {board :board pieces :pieces move :move :as b}]
   (let [takes   (if (= piece :C) :C :T)
-        pot     (pieces player)
+        moving  (if (= 1 move) (if (= player :1) :2 :1) player)
+        pot     (pieces moving)
         pot     (assoc pot takes (dec (pot takes)))
-        pieces  (assoc pieces player pot)
+        pieces  (assoc pieces moving pot)
         x       (decode-x x)
         y       (decode-y y)
         row     (board y)
         cell    (row x)
-        piece   (keyword (str (name player) (if (not (= piece :F)) (name piece) "")))
+        piece   (keyword (str (name moving) (if (not (= piece :F)) (name piece) "")))
         cell    (conj cell piece)
         row     (assoc row x cell)
         board   (assoc board y row)]
