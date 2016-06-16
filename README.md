@@ -17,7 +17,6 @@ This project implements the game with in the intention of making a robot player 
   * game
     * play human v human on the command line
     * play a whole PTN file move by move
-    * reverse first moves
     * score: board size plus unplayed
   * bot
     * command line play against robot
