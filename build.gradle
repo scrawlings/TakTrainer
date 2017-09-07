@@ -3,6 +3,7 @@ ext.junitJupiterVersion  = '5.0.0-RC3'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'clojure'
+apply plugin: 'kotlin'
 
 // Refer to these links for including Clojure in Gradle
 //   http://stackoverflow.com/questions/29015575/using-gradle-clojuresq-to-build-clojure
@@ -16,12 +17,16 @@ task wrapper(type: Wrapper) {
 }
 
 buildscript {
+    ext.kotlin_version = '1.1.4-3'
+    ext.clojure_version = '1.7.0'
+
     repositories { 
         maven { url "http://clojars.org/repo" }
         mavenCentral()
     }
     dependencies {
-        classpath "clojuresque:clojuresque:1.7.0"
+        classpath "clojuresque:clojuresque:${clojure_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
     }
 }
 
@@ -30,11 +35,17 @@ sourceSets {
         clojure {
             srcDirs = ['src/main/clojure']
         }
+        kotlin {
+            srcDirs = ['src/main/kotlin']
+        }
     }
 
     test {
         clojure {
             srcDirs = ['src/test/clojure']
+        }
+        kotlin {
+            srcDirs = ['src/test/kotlin']
         }
     }
 }
@@ -62,7 +73,11 @@ dependencies {
     compile "com.javaslang:javaslang:2.0.0-RC2"
     compile "org.jfree:jfreechart:1.0.19"
     compile "org.clojure:math.combinatorics:0.1.3"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
 
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
     testCompile 'org.assertj:assertj-core:3.4.1'
 
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
