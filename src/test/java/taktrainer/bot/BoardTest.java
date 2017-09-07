@@ -1,7 +1,8 @@
 package taktrainer.bot;
 
-import org.junit.Ignore;
-import org.junit.Test;
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static taktrainer.bot.TPS.loadTPS;

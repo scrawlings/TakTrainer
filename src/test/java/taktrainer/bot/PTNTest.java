@@ -1,9 +1,8 @@
 package taktrainer.bot;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static taktrainer.bot.PTN.loadPTN;
 import static taktrainer.bot.PTN.toPTN;
 

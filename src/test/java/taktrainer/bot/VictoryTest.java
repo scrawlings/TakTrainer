@@ -1,15 +1,12 @@
 package taktrainer.bot;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static taktrainer.bot.Board.NoPlayer;
 import static taktrainer.bot.Board.P1;
 import static taktrainer.bot.Board.P2;
 import static taktrainer.bot.TPS.loadTPS;
-import static taktrainer.bot.TPS.toTPS;
 import static taktrainer.bot.Victory.flatsMajority;
 import static taktrainer.bot.Victory.winByRoads;
 
